@@ -5,7 +5,6 @@ import com.luizbaldini.workshopmongo.dto.UserDTO;
 import com.luizbaldini.workshopmongo.repository.UserRepository;
 import com.luizbaldini.workshopmongo.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.objenesis.ObjenesisException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -31,7 +30,15 @@ public class UserService {
        return repo.insert(obj);
     }
 
+    public void delete(String id){
+        findById(id);
+        repo.deleteById(id);
+    }
+
+
+
     public User fromDTO(UserDTO objDto){
         return  new User(objDto.getId(), objDto.getName(),objDto.getEmail());
     }
+
 }
