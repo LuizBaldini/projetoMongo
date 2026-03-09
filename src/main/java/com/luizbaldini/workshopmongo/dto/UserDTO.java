@@ -1,9 +1,11 @@
 package com.luizbaldini.workshopmongo.dto;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import com.luizbaldini.workshopmongo.domain.User;
 
 import java.io.Serializable;
 
+@ JsonPropertyOrder({ "id", "name", "email" })
 public class UserDTO implements Serializable {
 
     private String id;
@@ -14,8 +16,8 @@ public class UserDTO implements Serializable {
 
     public UserDTO(User obj) {
         id=obj.getId();
-        id=obj.getName();
-        id= obj.getEmail();
+        name=obj.getName();
+        email= obj.getEmail();
     }
 
 
