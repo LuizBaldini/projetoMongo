@@ -3,6 +3,7 @@ package com.luizbaldini.workshopmongo.config;
 import com.luizbaldini.workshopmongo.domain.Post;
 import com.luizbaldini.workshopmongo.domain.User;
 import com.luizbaldini.workshopmongo.dto.AuthorDTO;
+import com.luizbaldini.workshopmongo.dto.CommentDTO;
 import com.luizbaldini.workshopmongo.repository.PostRepository;
 import com.luizbaldini.workshopmongo.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Configuration;
 
 import java.text.SimpleDateFormat;
 
+import java.util.List;
 import java.util.TimeZone;
 import java.util.Arrays;
 
@@ -45,9 +47,18 @@ public class Instantiation implements CommandLineRunner {
         Post post2 = new Post(null, sdf.parse("23/03/2018"), "Bom dia",
                 "Acordei feliz hoje!", new AuthorDTO(maria));
 
-        postRepository.saveAll(Arrays.asList(post1, post2));
 
-        maria.getPosts().addAll(Arrays.asList(post1,post2));
+        CommentDTO c1 = new CommentDTO("Boa viagem mano!", sdf.parse("21/03/2018"), new AuthorDTO(alex));
+        CommentDTO c2 = new CommentDTO("Aproveite", sdf.parse("22/03/2018"), new AuthorDTO(bob));
+        CommentDTO c3 = new CommentDTO("Tenha um ótimo dia!", sdf.parse("23/03/2018"), new AuthorDTO(alex));
+
+        post1.getComment().addAll(Arrays.asList(c1,c2));
+        post2.getComment().add(c3);
+        postRepository.saveAll(Arrays.asList(post1, post2));
+        maria.getPosts().addAll(Arrays.asList(post1, post2));
         userRepository.save(maria);
+
+
     }
 }
+
