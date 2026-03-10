@@ -1,8 +1,8 @@
-package com.luizbaldini.workshopmongo.service.exception;
+package com.luizbaldini.workshopmongo.service;
 
 import com.luizbaldini.workshopmongo.domain.Post;
-import com.luizbaldini.workshopmongo.domain.User;
 import com.luizbaldini.workshopmongo.repository.PostRepository;
+import com.luizbaldini.workshopmongo.service.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +19,9 @@ public class PostService {
     public Post findById(String id) {
         Optional<Post> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+    }
+    public List<Post> findByTitle(String text){
+       return repo.findByTitleContainsIgnoreCase(text);
     }
 
 
